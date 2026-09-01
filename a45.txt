@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hockey — A Stick, A Ball, A Thousand Years</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pitch-dark:#132318;
+    --pitch-deep:#0e1b13;
+    --chalk:#F2F0E3;
+    --chalk-dim:#E4E1D0;
+    --turf:#4C7A4F;
+    --turf-light:#7CA576;
+    --leather:#8B4A2B;
+    --leather-light:#B5713F;
+    --gold:#B8923A;
+    --ink:#16241C;
+    --line:rgba(242,240,227,0.18);
+    --line-dark:rgba(22,36,28,0.14);
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--chalk);
+    color:var(--ink);
+    font-family:'Source Serif 4', Georgia, serif;
+    font-optical-sizing:auto;
+    line-height:1.65;
+  }
+
+  h1,h2,h3,.stat-num,.nav-mark,.tag{
+    font-family:'Oswald', sans-serif;
+    letter-spacing:0.01em;
+  }
+
+  img{max-width:100%; display:block;}
+
+  a{color:inherit;}
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 clamp(1.25rem, 4vw, 3rem);
+  }
+
+  /* ---------- top mark ---------- */
+  .topbar{
+    padding:1.5rem clamp(1.25rem,4vw,3rem);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:var(--chalk);
+    position:relative;
+    z-index:5;
+  }
+  .nav-mark{
+    font-weight:600;
+    font-size:1.05rem;
+    color:var(--chalk);
+  }
+  .nav-sub{
+    font-size:0.8rem;
+    color:var(--chalk-dim);
+    font-family:'Source Serif 4', serif;
+    font-style:italic;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    background:var(--pitch-deep);
+    color:var(--chalk);
+    overflow:hidden;
+  }
+  .hero-media{
+    position:relative;
+    height:min(78vh, 640px);
+    min-height:420px;
+    overflow:hidden;
+  }
+  .hero-media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 30%;
+    opacity:0.62;
+  }
+  .hero-media::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(14,27,19,0.35) 0%, rgba(14,27,19,0.55) 55%, var(--pitch-deep) 100%);
+  }
+  .hero-text{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding:0 clamp(1.25rem,4vw,3rem) 2.4rem;
+  }
+  .hero-text-inner{
+    max-width:var(--maxw);
+    margin:0 auto;
+    animation:riseIn 900ms ease-out both;
+  }
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(18px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .hero h1{
+    font-size:clamp(3rem, 9vw, 6.4rem);
+    font-weight:700;
+    margin:0 0 0.4rem;
+    line-height:0.95;
+  }
+  .hero p.lede{
+    font-family:'Source Serif 4', serif;
+    font-size:clamp(1.05rem, 2vw, 1.35rem);
+    max-width:34ch;
+    color:var(--chalk-dim);
+    margin:0;
+  }
+  .hero-credit{
+    font-size:0.75rem;
+    color:rgba(242,240,227,0.55);
+    margin-top:0.9rem;
+    font-family:'Source Serif 4', serif;
+    font-style:italic;
+  }
+
+  .stat-strip{
+    background:var(--pitch-dark);
+    border-top:1px solid var(--line);
+  }
+  .stat-strip .wrap{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+  }
+  .stat{
+    padding:1.6rem 1rem;
+    text-align:center;
+    border-left:1px solid var(--line);
+  }
+  .stat:first-child{border-left:none;}
+  .stat-num{
+    color:var(--chalk);
+    font-size:clamp(1.6rem,3.6vw,2.4rem);
+    font-weight:600;
+    line-height:1;
+  }
+  .stat-label{
+    color:var(--chalk-dim);
+    font-size:0.82rem;
+    margin-top:0.4rem;
+    font-family:'Source Serif 4', serif;
+    font-style:italic;
+  }
+
+  /* ---------- generic sections ---------- */
+  section{padding:clamp(3.5rem,7vw,6rem) 0;}
+  .rule{
+    border:none;
+    border-top:1px solid var(--line-dark);
+    margin:0;
+  }
+
+  h2{
+    font-size:clamp(1.9rem, 4vw, 2.8rem);
+    font-weight:600;
+    margin:0 0 1.3rem;
+    line-height:1.1;
+    color:var(--ink);
+  }
+  .section-intro{
+    max-width:62ch;
+    font-size:1.08rem;
+    color:#3a463d;
+  }
+
+  .prose{
+    max-width:68ch;
+    font-size:1.05rem;
+  }
+  .prose p{margin:0 0 1.1rem;}
+  .prose p:last-child{margin-bottom:0;}
+
+  /* two column split with image */
+  .split{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:clamp(2rem,5vw,4rem);
+    align-items:center;
+  }
+  .split.reverse .split-media{order:2;}
+  .split.reverse .split-text{order:1;}
+  .split-media figure{margin:0;}
+  .split-media img{
+    width:100%;
+    height:clamp(280px,38vw,420px);
+    object-fit:cover;
+  }
+  figcaption{
+    font-size:0.78rem;
+    color:#6b756d;
+    margin-top:0.6rem;
+    font-style:italic;
+    font-family:'Source Serif 4', serif;
+  }
+
+  @media (max-width: 820px){
+    .split, .split.reverse{
+      grid-template-columns:1fr;
+    }
+    .split-media, .split.reverse .split-media{order:1;}
+    .split-text, .split.reverse .split-text{order:2;}
+  }
+
+  /* ---------- dark section (India timeline) ---------- */
+  .dark-section{
+    background:var(--pitch-dark);
+    color:var(--chalk);
+  }
+  .dark-section h2{color:var(--chalk);}
+  .dark-section .section-intro{color:var(--chalk-dim);}
+
+  .timeline{
+    margin-top:2.5rem;
+    border-left:2px solid var(--line);
+    padding-left:clamp(1.4rem,3vw,2.4rem);
+    max-width:640px;
+  }
+  .t-item{
+    position:relative;
+    padding-bottom:1.5rem;
+  }
+  .t-item:last-child{padding-bottom:0;}
+  .t-item::before{
+    content:"";
+    position:absolute;
+    left:calc(-1.4rem - 6px);
+    top:0.35rem;
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    background:var(--gold);
+  }
+  @media (max-width:820px){
+    .t-item::before{left:calc(-1.4rem - 6px);}
+  }
+  .t-year{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    font-size:1.15rem;
+    color:var(--gold);
+  }
+  .t-place{
+    color:var(--chalk-dim);
+    font-size:0.95rem;
+  }
+
+  /* ---------- rules list ---------- */
+  .rules-grid{
+    margin-top:2.2rem;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:0;
+    border-top:1px solid var(--line-dark);
+    border-left:1px solid var(--line-dark);
+  }
+  .rule-cell{
+    padding:1.6rem clamp(1.2rem,2.5vw,2rem);
+    border-right:1px solid var(--line-dark);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .rule-cell h3{
+    font-size:1.05rem;
+    font-weight:600;
+    margin:0 0 0.5rem;
+    color:var(--leather);
+  }
+  .rule-cell p{
+    margin:0;
+    font-size:0.98rem;
+    color:#3a463d;
+  }
+  @media (max-width:640px){
+    .rules-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- positions ---------- */
+  .pitch-diagram{
+    margin-top:2.5rem;
+    background:var(--turf);
+    background-image:
+      linear-gradient(90deg, transparent 0%, transparent calc(50% - 1px), rgba(255,255,255,0.4) 50%, transparent calc(50% + 1px), transparent 100%);
+    border:2px solid rgba(255,255,255,0.55);
+    padding:clamp(1.5rem,4vw,3rem);
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1rem;
+  }
+  .pos-card{
+    background:rgba(19,35,24,0.28);
+    border:1px solid rgba(255,255,255,0.35);
+    padding:1.1rem 1rem;
+    color:var(--chalk);
+  }
+  .pos-card h3{
+    font-size:1rem;
+    font-weight:600;
+    margin:0 0 0.4rem;
+  }
+  .pos-card p{
+    font-size:0.88rem;
+    margin:0;
+    color:rgba(242,240,227,0.85);
+  }
+  @media (max-width:820px){
+    .pitch-diagram{grid-template-columns:repeat(2,1fr); background-image:none;}
+  }
+  @media (max-width:480px){
+    .pitch-diagram{grid-template-columns:1fr;}
+  }
+
+  /* ---------- gallery band ---------- */
+  .gallery{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:1.2rem;
+    margin-top:2.5rem;
+  }
+  .gallery img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .gallery figure{margin:0; height:100%;}
+  .gallery-tall{height:clamp(320px,42vw,460px);}
+  @media (max-width:820px){
+    .gallery{grid-template-columns:1fr;}
+    .gallery-tall{height:280px;}
+  }
+
+  /* ---------- closing ---------- */
+  .closing{
+    background:var(--pitch-deep);
+    color:var(--chalk-dim);
+  }
+  .closing .prose{color:var(--chalk-dim); max-width:60ch;}
+  .closing h2{color:var(--chalk);}
+  .closing .prose strong{color:var(--chalk);}
+
+  footer{
+    background:var(--pitch-deep);
+    border-top:1px solid var(--line);
+    color:rgba(242,240,227,0.55);
+    font-size:0.8rem;
+    padding:2rem 0 2.6rem;
+  }
+  footer .wrap{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.5rem 1.5rem;
+    justify-content:space-between;
+  }
+  footer a{text-decoration:underline; text-decoration-color:rgba(242,240,227,0.3);}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="topbar">
+    <span class="nav-mark">Hockey</span>
+    <span class="nav-sub">a field guide</span>
+  </div>
+  <div class="hero-media">
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/GBR_vs_USA_FIHPL_match_2019.jpg"
+         alt="Players from Great Britain and the United States challenge for the ball during an international hockey match"
+         loading="eager">
+    <div class="hero-text">
+      <div class="hero-text-inner">
+        <h1>Hockey</h1>
+        <p class="lede">Eleven players a side, a stick curved on one face, and a ball that moves faster than anyone chasing it. One of the oldest team games still played the way it was meant to be.</p>
+        <p class="hero-credit">Great Britain v United States, FIH Pro League, 2019 — Photo via Wikimedia Commons</p>
+      </div>
+    </div>
+  </div>
+  <div class="stat-strip">
+    <div class="wrap">
+      <div class="stat">
+        <div class="stat-num">4,000+</div>
+        <div class="stat-label">years of stick-and-ball games behind it</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Olympic golds won by India's men's team</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">135+</div>
+        <div class="stat-label">countries where it's played today</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>What the game actually is</h2>
+    <p class="section-intro">Strip away the tournaments and the trophies, and hockey is a simple idea: two teams, one ball, and a stick each, trying to send the ball into a goal more times than the other side.</p>
+    <div class="prose" style="margin-top:1.6rem;">
+      <p>What most of the world calls "hockey" — and what is officially called field hockey to tell it apart from its cousin on ice — is played on a rectangular pitch of grass or artificial turf, with eleven players per side, including a goalkeeper. Each outfield player carries a stick that is flat on one face and rounded on the other; only the flat face is allowed to touch the ball, which is what gives the game its particular rhythm of turned wrists and reversed strokes.</p>
+      <p>It is one of the oldest team sports still played in a form its ancient originators would recognise. Long before it had rules written down anywhere, people across very different parts of the world had already worked out the same basic idea — a stick, a ball, and a goal to defend.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div class="split-text">
+        <h2>A game older than most</h2>
+        <div class="prose">
+          <p>Tomb paintings from Beni Hasan in Egypt, roughly four thousand years old, show two figures with curved sticks and a ball between them. Ancient Greek carvings show much the same scene, as do old Persian and Ethiopian accounts of stick games played on open ground. The idea clearly occurred to a lot of people independently, long before anyone thought to write down how it should be played.</p>
+          <p>The version played today took shape in England in the nineteenth century. Clubs began forming in the 1850s and 60s, and in 1886 several of them came together in London to form the Hockey Association, which set down a common rulebook for the first time. From England, the game travelled with soldiers, schools, and traders to every corner of the British Empire — and in more than one of those places, it was taken up with a seriousness that would eventually outgrow the country that introduced it.</p>
+        </div>
+      </div>
+      <div class="split-media">
+        <figure>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Field_hockey_bully-off.png"
+               alt="Two players face off at the centre of the pitch to restart a hockey match, photographed in 1919"
+               loading="lazy">
+          <figcaption>A bully-off restarts play at the centre of the pitch — a women's match, 1919. Photo: Wikimedia Commons</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark-section">
+  <div class="wrap">
+    <h2>The years India owned the podium</h2>
+    <p class="section-intro">No country has ever dominated an Olympic team sport the way India dominated hockey in the middle of the twentieth century. The team didn't just win — for three decades, it was barely beaten.</p>
+
+    <div class="split" style="margin-top:2.5rem; align-items:flex-start;">
+      <div class="split-text">
+        <div class="prose">
+          <p>India played its first Olympic hockey match in 1928, in Amsterdam, having only formed a national federation three years earlier. The team won every match it played and took the gold medal on debut, with a young forward named Dhyan Chand scoring goal after goal, including a hat-trick in the final. It was the beginning of a run that nobody has come close to repeating since: six straight gold medals from 1928 to 1956, and eight out of nine Olympics won between 1928 and 1980.</p>
+          <p>Dhyan Chand himself became the game's first true global star, so precise with the ball that opposing officials reportedly once broke his stick mid-match to check it wasn't hiding a magnet. There wasn't one — just a level of stick control that hasn't dated in the ninety years since.</p>
+        </div>
+        <div class="timeline">
+          <div class="t-item"><span class="t-year">1928</span> — <span class="t-place">Amsterdam, gold on Olympic debut</span></div>
+          <div class="t-item"><span class="t-year">1932</span> — <span class="t-place">Los Angeles, gold</span></div>
+          <div class="t-item"><span class="t-year">1936</span> — <span class="t-place">Berlin, gold, captained by Dhyan Chand</span></div>
+          <div class="t-item"><span class="t-year">1948</span> — <span class="t-place">London, gold in India's first Olympics as an independent nation</span></div>
+          <div class="t-item"><span class="t-year">1952</span> — <span class="t-place">Helsinki, gold</span></div>
+          <div class="t-item"><span class="t-year">1956</span> — <span class="t-place">Melbourne, a sixth consecutive gold</span></div>
+          <div class="t-item"><span class="t-year">1964</span> — <span class="t-place">Tokyo, gold</span></div>
+          <div class="t-item"><span class="t-year">1980</span> — <span class="t-place">Moscow, an eighth and, so far, final gold</span></div>
+        </div>
+      </div>
+      <div class="split-media">
+        <figure>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Indian_hockey_team_1928_Olympics.jpg"
+               alt="The Indian hockey team pose together after their Olympic debut win over Austria in 1928"
+               loading="lazy">
+          <figcaption>India's team after their debut Olympic win over Austria, Amsterdam 1928. Photo: Wikimedia Commons</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>How a match actually works</h2>
+    <p class="section-intro">The rules have changed shape a few times over the decades — most notably, the old offside rule was dropped entirely in the early 1990s — but the core of the game has stayed put.</p>
+    <div class="rules-grid">
+      <div class="rule-cell">
+        <h3>The pitch</h3>
+        <p>A rectangle of grass or artificial turf about 91 metres long and 55 metres wide, with a goal at each end and a curved scoring zone, known as "the D," in front of each one.</p>
+      </div>
+      <div class="rule-cell">
+        <h3>The teams</h3>
+        <p>Eleven players a side on the pitch at once, one of them a goalkeeper, with substitutes rotating in and out through the match far more freely than in most team sports.</p>
+      </div>
+      <div class="rule-cell">
+        <h3>The time</h3>
+        <p>International matches run for four quarters of 15 minutes each, with short breaks between them — a format introduced to give broadcasters and tired legs alike a breather.</p>
+      </div>
+      <div class="rule-cell">
+        <h3>Scoring</h3>
+        <p>A goal only counts if the ball is played from inside the D. Anything struck from outside that zone, however good it looks, doesn't count — which shapes almost every attacking move in the game.</p>
+      </div>
+      <div class="rule-cell">
+        <h3>Touching the ball</h3>
+        <p>Only the flat face of the stick may touch the ball. Kicking it, or using the rounded back edge of the stick, is a foul — except for the goalkeeper inside their own circle.</p>
+      </div>
+      <div class="rule-cell">
+        <h3>Penalty corners</h3>
+        <p>Awarded for fouls by the defending side inside the D, or deliberate fouls just outside it — a set-piece moment that has decided more finals than almost anything else in the game.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <div class="wrap">
+    <h2>Who plays where</h2>
+    <p class="section-intro">Formations shift from team to team, but every side is built around the same four jobs, laid out here the way they'd sit on the pitch — goal to goal.</p>
+    <div class="pitch-diagram">
+      <div class="pos-card">
+        <h3>Goalkeeper</h3>
+        <p>The only player allowed to kick the ball or block it with any part of the body, but only inside the shooting circle.</p>
+      </div>
+      <div class="pos-card">
+        <h3>Defenders</h3>
+        <p>Fullbacks who mark attackers, break up moves, and start attacks with long, accurate passes out of defence.</p>
+      </div>
+      <div class="pos-card">
+        <h3>Midfielders</h3>
+        <p>Often called "halves" — the ones who cover the most ground, linking defence to attack and back again all match long.</p>
+      </div>
+      <div class="pos-card">
+        <h3>Forwards</h3>
+        <p>Strikers and wingers whose job is to get into the D and turn possession into goals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="split reverse">
+      <div class="split-text">
+        <h2>The stick and the ball</h2>
+        <div class="prose">
+          <p>A hockey stick looks deceptively simple — wood or, more often now, a carbon and fibreglass composite, with a long handle and a short, hooked head. The trick is that it's curved on one face only. That single rule shapes everything about how the game is played, forcing players to constantly turn the stick, reverse their stance, or switch hands rather than simply swinging at the ball from any angle.</p>
+          <p>The ball itself is hard plastic, about the size of a cricket ball, with a dimpled surface a little like a golf ball's, designed to keep it stable at speed on turf. Hit properly, it can travel well over 100 kilometres an hour — fast enough that goalkeepers wear a full set of padding, a helmet, and a chest guard just to stand in front of it.</p>
+        </div>
+      </div>
+      <div class="split-media">
+        <figure>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Katie_Bam_USA_2.jpg"
+               alt="Close-up of a field hockey stick, curved on one face, resting near the ball"
+               loading="lazy">
+          <figcaption>A field hockey stick — flat on one face, curved on the other. Photo: Wikimedia Commons</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <div class="wrap">
+    <h2>One game, several forms</h2>
+    <div class="prose" style="margin-bottom:2.2rem;">
+      <p>Take the same basic idea — a stick, a ball, two goals — and move it to a different surface, and you get a whole family of related games. Ice hockey developed in the cold winters of Canada and northern Europe, where players simply took stick-and-ball games onto frozen ponds and swapped the ball for a puck that would behave on ice. Indoor hockey shrinks the field-hockey pitch down for a smaller, faster five-a-side game played on a hard court. And at grass-roots level, from school playgrounds to university leagues, the game is played and re-played by people who will never see an Olympic pitch, which is really where most of its history has actually happened.</p>
+    </div>
+    <div class="gallery">
+      <figure class="gallery-tall">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Field_hockey_at_the_2012_Summer_Olympics_-_NZL-AUS_(7796665032).jpg"
+             alt="Players from New Zealand and Australia contest the ball during a women's Olympic hockey match in London, 2012"
+             loading="lazy">
+        <figcaption>New Zealand v Australia, London 2012 Olympics. Photo: Wikimedia Commons</figcaption>
+      </figure>
+      <figure class="gallery-tall">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ohio_State_vs._Michigan_field_hockey_2012_09.jpg"
+             alt="College players challenge for the ball during a university hockey match in Michigan"
+             loading="lazy">
+        <figcaption>A university match between Ohio State and Michigan. Photo: Wikimedia Commons</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <h2>Why it's stayed worth watching</h2>
+    <div class="prose">
+      <p>Hockey rewards a strange mix of skills that don't usually sit together — the patience to build a passing move over thirty seconds, and the speed to finish it in half of one. A stick that limits how you can touch the ball, rather than making things easier, is what forces the close control and quick-wristed passing that make a good match so watchable. It's a sport that's been a school playground game and an Olympic final at the same time for well over a century, and both versions are, underneath it all, the same game.</p>
+      <p><strong>None of this page is selling anything</strong> — it's simply an introduction to a sport that's been played, in one form or another, for longer than almost any other team game still on the field today.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Photographs: Wikimedia Commons contributors, used under their published licences.</span>
+    <span>A page about the game, nothing more.</span>
+  </div>
+</footer>
+
+</body>
+</html>
